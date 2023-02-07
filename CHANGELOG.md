@@ -8,6 +8,19 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * New Help Center
 * Design/BL&API for display app details for Admin Board
 
+## 1.0.0-RC7
+
+### Change
+* Admin App Approval Board - app detail page released when clicking on app card
+
+### Feature
+n/a
+
+### Technical Support
+n/a
+
+### Bugfix
+* Notification delete mechanism updated - auto page reload
 
 ## 1.0.0-RC6
 
