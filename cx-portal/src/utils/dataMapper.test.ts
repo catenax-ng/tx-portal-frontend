@@ -47,7 +47,11 @@ describe('DataMapperTest', () => {
     expect(mapDataGridResult).toStrictEqual(TestDataGridData)
 
     // Pick random entry and compare with result
-    const randomEntry = Math.floor(window.crypto.getRandomValues(new Uint8Array(256))[0] * mapDataGridResult.length)
+    const crypto = window.crypto
+    const array = new Uint32Array(1)
+    crypto.getRandomValues(array)
+    const randomNumber = array[0]
+    const randomEntry = Math.floor(randomNumber * mapDataGridResult.length)
     expect(mapDataGridResult[randomEntry]).toStrictEqual(
       TestDataGridData[randomEntry]
     )
