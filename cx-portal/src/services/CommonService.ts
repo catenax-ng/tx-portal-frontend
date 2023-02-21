@@ -52,14 +52,9 @@ const fetchLeadPictureImage = (data: any[], doNotPickDefaultType?: boolean) => {
                 let reader = new FileReader()
                 reader.onload = function () {
                   resolve(
-                    !doNotPickDefaultType
+                    doNotPickDefaultType
                       ? {
                           ...app,
-                          subtitle: app.provider,
-                          title: getName(app),
-                          description: getDescription(app),
-                          price: getPrice(app),
-                          onClick: onClick(app),
                           image: {
                             src: this.result,
                             alt: app.title,
@@ -67,6 +62,11 @@ const fetchLeadPictureImage = (data: any[], doNotPickDefaultType?: boolean) => {
                         }
                       : {
                           ...app,
+                          subtitle: app.provider,
+                          title: getName(app),
+                          description: getDescription(app),
+                          price: getPrice(app),
+                          onClick: onClick(app),
                           image: {
                             src: this.result,
                             alt: app.title,
