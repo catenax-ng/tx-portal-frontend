@@ -17,6 +17,8 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * Bugfix - Styling - App Management Board
 * BugFix - Show subscription app image
          - App Release Process - App images preview fix
+         - App Release Process - App Leadimage data binding issue fix
+* Bugfix - App Deactivation Success - but page content not updated
 
 ## 1.0.0-RC9
 
