@@ -63,7 +63,7 @@ export default function Organization() {
   useEffect(() => {
     if (data && subscriptionStatus) {
       const newPromies = CommonService.fetchLeadPictureImage(data, true)
-      Promise.all(newPromies).then((result) => {
+      Promise.all(newPromies).then((result) =>
         setAppSubscribedData(
           result
             .flat()
@@ -75,7 +75,7 @@ export default function Organization() {
             })
             .filter((e) => e.status)
         )
-      })
+      )
     }
   }, [data, subscriptionStatus])
 
