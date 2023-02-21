@@ -31,7 +31,7 @@ const onClick = (app: any) =>
 
 const getPrice = (app: any) => (app.price === 'ERROR' ? '' : app.price)
 
-const fetchLeadPictureImage = (data: any[]) => {
+const fetchLeadPictureImage = (data: any[], doNotPickDefaultType?: boolean) => {
   const promises = data?.map((app: any) => {
     return [
       new Promise((resolve, reject) => {
@@ -51,18 +51,28 @@ const fetchLeadPictureImage = (data: any[]) => {
               new Promise((callback) => {
                 let reader = new FileReader()
                 reader.onload = function () {
-                  resolve({
-                    ...app,
-                    subtitle: app.provider,
-                    title: getName(app),
-                    description: getDescription(app),
-                    price: getPrice(app),
-                    onClick: onClick(app),
-                    image: {
-                      src: this.result,
-                      alt: app.title,
-                    },
-                  })
+                  if (!doNotPickDefaultType) {
+                    resolve({
+                      ...app,
+                      subtitle: app.provider,
+                      title: getName(app),
+                      description: getDescription(app),
+                      price: getPrice(app),
+                      onClick: onClick(app),
+                      image: {
+                        src: this.result,
+                        alt: app.title,
+                      },
+                    })
+                  } else {
+                    resolve({
+                      ...app,
+                      image: {
+                        src: this.result,
+                        alt: app.title,
+                      },
+                    })
+                  }
                 }
                 reader.readAsDataURL(blob)
               })

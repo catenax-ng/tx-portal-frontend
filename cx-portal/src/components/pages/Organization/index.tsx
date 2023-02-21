@@ -26,14 +26,17 @@ import { show } from 'features/control/overlay/actions'
 import './Organization.scss'
 import { OVERLAYS } from 'types/Constants'
 import {
+  ImageType,
+  SubscriptionStatus,
   useFetchActiveAppsQuery,
   useFetchSubscriptionStatusQuery,
 } from 'features/apps/apiSlice'
-import { appToStatus } from 'features/apps/mapper'
 import { useFetchOwnCompanyDetailsQuery } from 'features/admin/userApiSlice'
 import LoadingError from './LoadingError'
 import { CompanyDetailsToCards } from 'features/admin/mapper'
 import { UserDetailCard } from 'components/shared/basic/UserDetailInfo/UserDetailCard'
+import { useEffect, useState } from 'react'
+import CommonService from 'services/CommonService'
 
 export default function Organization() {
   const { t } = useTranslation()
@@ -44,8 +47,7 @@ export default function Organization() {
     isLoading,
   } = useFetchSubscriptionStatusQuery()
   const { data } = useFetchActiveAppsQuery()
-  const appSubscribedData =
-    data && subscriptionStatus && appToStatus(data, subscriptionStatus)
+  const [appSubscribedData, setAppSubscribedData] = useState<any>([])
   const {
     data: companyDetails,
     isError: companyDetailsError,
@@ -58,18 +60,44 @@ export default function Organization() {
     dispatch(show(OVERLAYS.APP, id, t('content.organization.company.title')))
   }
 
+  useEffect(() => {
+    if (data && subscriptionStatus) {
+      const newPromies = CommonService.fetchLeadPictureImage(data, true)
+      Promise.all(newPromies).then((result) => {
+        const newApps = result
+          .flat()
+          ?.map((app: any) => {
+            const status = subscriptionStatus?.find(
+              (e) => e.appId === app.id
+            )?.offerSubscriptionStatus
+            return { ...app, status }
+          })
+          .filter((e) => e.status)
+        setAppSubscribedData(newApps)
+      })
+    }
+  }, [data, subscriptionStatus])
+
   const appSubscriptionsTableBody =
-    appSubscribedData?.map((app) => [
-      () => (
-        <AppSubscriptions
-          image={app.image}
-          onButtonClick={() => handleClick(app.id)}
-          name={app.name || ''}
-          provider={app.provider}
-          status={app.status}
-        />
-      ),
-    ]) || []
+    appSubscribedData?.map(
+      (app: {
+        image: ImageType | undefined
+        id: string | undefined
+        name: any
+        provider: string
+        status: SubscriptionStatus | undefined
+      }) => [
+        () => (
+          <AppSubscriptions
+            image={app.image}
+            onButtonClick={() => handleClick(app.id)}
+            name={app.name || ''}
+            provider={app.provider}
+            status={app.status}
+          />
+        ),
+      ]
+    ) || []
 
   const appSubscriptionsTableData: TableType = {
     head: [t('content.organization.subscriptions.title')],
