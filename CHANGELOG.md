@@ -15,6 +15,7 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
            * App Overview
            * AdminBoard
 * Bugfix - Styling - App Management Board
+* BugFix - Show subscription app image
 
 ## 1.0.0-RC9
 
