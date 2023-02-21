@@ -51,28 +51,28 @@ const fetchLeadPictureImage = (data: any[], doNotPickDefaultType?: boolean) => {
               new Promise((callback) => {
                 let reader = new FileReader()
                 reader.onload = function () {
-                  if (!doNotPickDefaultType) {
-                    resolve({
-                      ...app,
-                      subtitle: app.provider,
-                      title: getName(app),
-                      description: getDescription(app),
-                      price: getPrice(app),
-                      onClick: onClick(app),
-                      image: {
-                        src: this.result,
-                        alt: app.title,
-                      },
-                    })
-                  } else {
-                    resolve({
-                      ...app,
-                      image: {
-                        src: this.result,
-                        alt: app.title,
-                      },
-                    })
-                  }
+                  resolve(
+                    !doNotPickDefaultType
+                      ? {
+                          ...app,
+                          subtitle: app.provider,
+                          title: getName(app),
+                          description: getDescription(app),
+                          price: getPrice(app),
+                          onClick: onClick(app),
+                          image: {
+                            src: this.result,
+                            alt: app.title,
+                          },
+                        }
+                      : {
+                          ...app,
+                          image: {
+                            src: this.result,
+                            alt: app.title,
+                          },
+                        }
+                  )
                 }
                 reader.readAsDataURL(blob)
               })

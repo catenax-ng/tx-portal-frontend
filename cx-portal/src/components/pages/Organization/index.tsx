@@ -64,16 +64,17 @@ export default function Organization() {
     if (data && subscriptionStatus) {
       const newPromies = CommonService.fetchLeadPictureImage(data, true)
       Promise.all(newPromies).then((result) => {
-        const newApps = result
-          .flat()
-          ?.map((app: any) => {
-            const status = subscriptionStatus?.find(
-              (e) => e.appId === app.id
-            )?.offerSubscriptionStatus
-            return { ...app, status }
-          })
-          .filter((e) => e.status)
-        setAppSubscribedData(newApps)
+        setAppSubscribedData(
+          result
+            .flat()
+            ?.map((app: any) => {
+              const status = subscriptionStatus?.find(
+                (e) => e.appId === app.id
+              )?.offerSubscriptionStatus
+              return { ...app, status }
+            })
+            .filter((e) => e.status)
+        )
       })
     }
   }, [data, subscriptionStatus])
