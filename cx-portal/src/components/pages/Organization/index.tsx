@@ -26,8 +26,7 @@ import { show } from 'features/control/overlay/actions'
 import './Organization.scss'
 import { OVERLAYS } from 'types/Constants'
 import {
-  ImageType,
-  SubscriptionStatus,
+  AppMarketplaceApp,
   useFetchActiveAppsQuery,
   useFetchSubscriptionStatusQuery,
 } from 'features/apps/apiSlice'
@@ -47,7 +46,8 @@ export default function Organization() {
     isLoading,
   } = useFetchSubscriptionStatusQuery()
   const { data } = useFetchActiveAppsQuery()
-  const [appSubscribedData, setAppSubscribedData] = useState<any>([])
+  const [appSubscribedData, setAppSubscribedData] =
+    useState<AppMarketplaceApp[]>()
   const {
     data: companyDetails,
     isError: companyDetailsError,
@@ -79,25 +79,17 @@ export default function Organization() {
   }, [data, subscriptionStatus])
 
   const appSubscriptionsTableBody =
-    appSubscribedData?.map(
-      (app: {
-        image: ImageType | undefined
-        id: string | undefined
-        name: any
-        provider: string
-        status: SubscriptionStatus | undefined
-      }) => [
-        () => (
-          <AppSubscriptions
-            image={app.image}
-            onButtonClick={() => handleClick(app.id)}
-            name={app.name || ''}
-            provider={app.provider}
-            status={app.status}
-          />
-        ),
-      ]
-    ) || []
+    appSubscribedData?.map((app) => [
+      () => (
+        <AppSubscriptions
+          image={app.image}
+          onButtonClick={() => handleClick(app.id)}
+          name={app.name || ''}
+          provider={app.provider}
+          status={app.status}
+        />
+      ),
+    ]) || []
 
   const appSubscriptionsTableData: TableType = {
     head: [t('content.organization.subscriptions.title')],
