@@ -3,7 +3,10 @@
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal Frontend.
 
 ### Unreleased
-* BugFix - Show subscription app image
+* My Orhanization
+   * BugFix - Show subscription app image
+* Notification
+   * BugFix - Wrong url link
 
 ## 1.0.0-RC10
 
