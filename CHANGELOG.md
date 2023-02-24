@@ -5,6 +5,8 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 ### Unreleased
 * My Orhanization
    * BugFix - Show subscription app image
+* Connector
+   * BugFix - Register daps via the auth icon in the connector registration, allows all type of files
 * Notification
    * BugFix - Wrong url link
 
