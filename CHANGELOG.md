@@ -3,7 +3,7 @@
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal Frontend.
 
 ### Unreleased
-* My Orhanization
+* My Organization
    * BugFix - Show subscription app image
 * Service Management
    * Navigation base setting
