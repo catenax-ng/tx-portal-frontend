@@ -202,6 +202,15 @@ export const apiSlice = createApi({
           : { error: response.error }
       },
     }),
+    fetchNewDocumentById: builder.mutation({
+      query: (documentId) => ({
+        url: `/api/administration/documents/${documentId}`,
+        responseHandler: async (response) => ({
+          headers: response.headers,
+          data: await response.blob(),
+        }),
+      }),
+    }),
     fetchAppStatus: builder.query<any, string>({
       query: (appId) => `api/apps/appreleaseprocess/${appId}/appStatus`,
     }),
@@ -271,6 +280,7 @@ export const {
   useUpdateappMutation,
   useSubmitappMutation,
   useUpdateDocumentUploadMutation,
+  useFetchNewDocumentByIdMutation,
   useFetchAppStatusQuery,
   useFetchAgreementDataQuery,
   useFetchConsentDataQuery,

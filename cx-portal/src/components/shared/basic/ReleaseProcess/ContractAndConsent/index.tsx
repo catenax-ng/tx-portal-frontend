@@ -24,11 +24,13 @@ import {
   PageNotifications,
   PageSnackbar,
   Typography,
+  UploadFileStatus,
+  UploadStatus,
 } from 'cx-portal-shared-components'
 import { useTranslation } from 'react-i18next'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import { Divider, Box, Grid } from '@mui/material'
+import { Divider, Box, Grid, InputLabel } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { ConnectorFormInputField } from '../AppMarketCard'
@@ -46,6 +48,7 @@ import {
   useFetchConsentDataQuery,
   useUpdateAgreementConsentsMutation,
   useFetchAppStatusQuery,
+  useUpdateDocumentUploadMutation,
 } from 'features/appManagement/apiSlice'
 import { setAppStatus } from 'features/appManagement/actions'
 
@@ -64,13 +67,21 @@ export default function ContractAndConsent() {
   const fetchAgreementData = useFetchAgreementDataQuery().data
   const fetchConsentData = useFetchConsentDataQuery(appId ?? '').data
   const [updateAgreementConsents] = useUpdateAgreementConsentsMutation()
+  const [updateDocumentUpload] = useUpdateDocumentUploadMutation()
   const [agreementData, setAgreementData] = useState<AgreementType>([])
   const [defaultValue, setDefaultValue] = useState<ConsentType>({
     agreements: [],
   })
+
   const fetchAppStatus = useFetchAppStatusQuery(appId ?? '', {
     refetchOnMountOrArgChange: true,
   }).data
+
+  const defaultValues = {
+    agreements: defaultValue,
+    uploadImageConformity:
+      fetchAppStatus?.documents?.CONFORMITY_APPROVAL_BUSINESS_APPS || null,
+  }
 
   useEffect(() => {
     dispatch(setAppStatus(fetchAppStatus))
@@ -111,17 +122,88 @@ export default function ContractAndConsent() {
 
   const {
     handleSubmit,
+    getValues,
     control,
     trigger,
+    setValue,
     formState: { errors, isValid },
     reset,
   } = useForm({
-    defaultValues: defaultValue,
+    defaultValues: defaultValues,
     mode: 'onChange',
   })
 
+  const uploadImageConformityValue = getValues().uploadImageConformity
+  const defaultuploadImageConformity = defaultValues.uploadImageConformity
+
+  useEffect(() => {
+    if (
+      defaultuploadImageConformity &&
+      Object.keys(defaultuploadImageConformity).length > 0
+    ) {
+      setValue('uploadImageConformity', {
+        id:
+          defaultuploadImageConformity &&
+          defaultuploadImageConformity[0]?.documentId,
+        name:
+          defaultuploadImageConformity &&
+          defaultuploadImageConformity[0]?.documentName,
+        status: UploadStatus.UPLOAD_SUCCESS,
+      })
+      setFileStatus('uploadImageConformity', UploadStatus.UPLOAD_SUCCESS)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultuploadImageConformity])
+
+  const setFileStatus = (
+    fieldName: Parameters<typeof setValue>[0],
+    status: UploadFileStatus
+  ) => {
+    const value = getValues(fieldName)
+
+    setValue(fieldName, {
+      id: value.id,
+      name: value.name,
+      size: value.size,
+      status,
+    } as any)
+  }
+
+  useEffect(() => {
+    const value = getValues().uploadImageConformity
+
+    if (Array.isArray(value)) {
+      setValue('uploadImageConformity', {
+        id:
+          defaultuploadImageConformity &&
+          defaultuploadImageConformity[0]?.documentId,
+        name:
+          defaultuploadImageConformity &&
+          defaultuploadImageConformity[0]?.documentName,
+        status: UploadStatus.UPLOAD_SUCCESS,
+      })
+      setFileStatus('uploadImageConformity', UploadStatus.UPLOAD_SUCCESS)
+    }
+
+    if (value && !Array.isArray(value) && !('status' in value)) {
+      setFileStatus('uploadImageConformity', UploadStatus.UPLOADING)
+
+      uploadDocumentApi(appId, 'CONFORMITY_APPROVAL_BUSINESS_APPS', value)
+        .then(() =>
+          setFileStatus('uploadImageConformity', UploadStatus.UPLOAD_SUCCESS)
+        )
+        .catch(() =>
+          setFileStatus('uploadImageConformity', UploadStatus.UPLOAD_ERROR)
+        )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadImageConformityValue])
+
   const onContractConsentSubmit = async (data: any, buttonLabel: string) => {
-    const validateFields = await trigger(['agreements'])
+    const validateFields = await trigger([
+      'agreements',
+      'uploadImageConformity',
+    ])
     if (validateFields) {
       handleSave(data, buttonLabel)
     }
@@ -158,6 +240,20 @@ export default function ContractAndConsent() {
       .catch(() => {
         setContractNotification(true)
       })
+  }
+
+  const uploadDocumentApi = async (
+    appId: string,
+    documentTypeId: string,
+    file: any
+  ) => {
+    const data = {
+      appId: appId,
+      documentTypeId: documentTypeId,
+      body: { file },
+    }
+
+    await updateDocumentUpload(data).unwrap()
   }
 
   const onBackIconClick = () => {
@@ -201,6 +297,42 @@ export default function ContractAndConsent() {
             />
           </div>
         ))}
+        <div className="form-field">
+          <InputLabel sx={{ mb: 3, mt: 3 }}>
+            {t('content.apprelease.appMarketCard.appLeadImageUpload') + ' *'}
+          </InputLabel>
+          <ConnectorFormInputField
+            {...{
+              control,
+              trigger,
+              errors,
+              name: 'uploadImageConformity',
+              type: 'dropzone',
+              acceptFormat: {
+                'application/pdf': ['.pdf'],
+              },
+              maxFilesToUpload: 1,
+              maxFileSize: 819200,
+              rules: {
+                required: {
+                  value: true,
+                },
+              },
+            }}
+          />
+          {errors?.uploadImageConformity?.type === 'required' && (
+            <Typography variant="body2" className="file-error-msg">
+              {t('content.apprelease.appReleaseForm.fileUploadIsMandatory')}
+            </Typography>
+          )}
+
+          <Typography variant="body2" mt={3} sx={{ fontWeight: 'bold' }}>
+            {t('content.apprelease.appReleaseForm.note')}
+          </Typography>
+          <Typography variant="body2" mb={3}>
+            {t('content.apprelease.appReleaseForm.OnlyOneFileAllowed')}
+          </Typography>
+        </div>
       </form>
       <Box mb={2}>
         {contractNotification && (
