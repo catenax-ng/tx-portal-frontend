@@ -83,10 +83,6 @@ export const Dropzone = ({
 
   const isDisabled = currentFiles.length === maxFilesToUpload
 
-  // const isDisabled = isSingleUpload
-  //   ? false
-  //   : currentFiles.length === maxFilesToUpload
-
   const onDropAccepted = useCallback(
     (droppedFiles: File[]) => {
       const nextFiles = isSingleUpload
