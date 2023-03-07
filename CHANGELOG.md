@@ -2,7 +2,12 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal Frontend.
 
-### Unreleased
+## Unreleased
+
+### Change
+* Change local development port to run behind reverse proxy
+
+## Unreleased
 * Service Management
    * Navigation base setting
    * Created a new component to support both App Release process & Service Release process intro pages
