@@ -35,7 +35,6 @@ import {
 export interface DropPreviewProps {
   uploadFiles: UploadFile[]
   onDelete?: (deleteIndex: number) => void
-  onDownload?: (name: string, id: string) => void
   translations: DropZonePreviewTranslations
 
   DropStatusHeader?: FunctionComponent<DropStatusHeaderProps> | false
@@ -54,7 +53,6 @@ export const DropPreview: FunctionComponent<DropPreviewProps> = ({
   uploadFiles,
   translations,
   onDelete,
-  onDownload,
   DropStatusHeader,
   DropPreviewFile,
   enableDeleteIcon = true,
@@ -137,7 +135,6 @@ export const DropPreview: FunctionComponent<DropPreviewProps> = ({
                       : onDelete?.(index)
                   }
                   enableDeleteIcon={enableDeleteIcon}
-                  onDownload={() => file.id && onDownload?.(file.name, file.id)}
                 />
               ))}
           </Box>

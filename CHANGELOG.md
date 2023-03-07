@@ -23,8 +23,6 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
    * Fetch documents from backend and download
    * Update style multiple order section
    * Add short description to card
-* AppReleaseProcess
-   * Conformity Document Type - Add Dropzone & Document handling
 * App Admin Board
    * Add Section for Conformity Document & display via api
 * Organization
