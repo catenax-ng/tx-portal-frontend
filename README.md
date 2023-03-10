@@ -17,9 +17,9 @@ The Catena-X Portal application consists of
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 
-Here are three ways to run the application locally on http://localhost:3001/ 
-Note: if you like to run the complete frontend application follow the readme in the 
-[portal-assets](https://github.com/eclipse-tractusx/portal-assets/)
+Here are three ways to run the application locally on http://localhost:3001/
+
+Note: if you'd like to run the complete frontend application, follow the 'Run frontend on localhost' guide available within the developer documentation of [portal-assets](https://github.com/eclipse-tractusx/portal-assets).
 
 ## Local build & run
 
