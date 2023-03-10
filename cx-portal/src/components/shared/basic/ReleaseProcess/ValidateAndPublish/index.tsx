@@ -43,6 +43,7 @@ import {
   increment,
 } from 'features/appManagement/slice'
 import {
+  DocumentData,
   useFetchAppStatusQuery,
   useFetchDocumentByIdMutation,
   useSubmitappMutation,
@@ -53,6 +54,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { setAppStatus } from 'features/appManagement/actions'
 import CommonService from 'services/CommonService'
 import ReleaseStepHeader from '../components/ReleaseStepHeader'
+import { download } from 'utils/downloadUtils'
 
 export default function ValidateAndPublish({
   showSubmitPage,
@@ -118,6 +120,22 @@ export default function ValidateAndPublish({
     }
   }
 
+  const handleDownloadFn = async (documentId: string, documentName: string) => {
+    try {
+      const response = await fetchDocumentById({
+        appId: appId,
+        documentId,
+      }).unwrap()
+
+      const fileType = response.headers.get('content-type')
+      const file = response.data
+
+      return download(file, fileType, documentName)
+    } catch (error) {
+      console.error(error, 'ERROR WHILE FETCHING DOCUMENT')
+    }
+  }
+
   const defaultValues = {
     images: [LogoGrayData, LogoGrayData, LogoGrayData],
     connectedTableData: {
@@ -130,6 +148,8 @@ export default function ValidateAndPublish({
     },
     dataSecurityInformation:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    conformityDocumentsDescription:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     documentsDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     providerTableData: {
@@ -294,6 +314,38 @@ export default function ValidateAndPublish({
           data={defaultValues.connectedTableData}
           horizontal={false}
         />
+
+        <Divider className="verify-validate-form-divider" />
+        <Typography variant="h4" sx={{ mb: 4 }}>
+          {t('content.apprelease.validateAndPublish.conformityDocument')}
+        </Typography>
+        <Typography variant="body2" className="form-field">
+          {defaultValues.conformityDocumentsDescription}
+        </Typography>
+        {statusData?.documents &&
+          statusData.documents['CONFORMITY_APPROVAL_BUSINESS_APPS'].map(
+            (item: DocumentData) => (
+              <InputLabel sx={{ mb: 0, mt: 3 }} key={item.documentId}>
+                <button
+                  style={{
+                    display: 'flex',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: '#0f71cb',
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                  }}
+                  onClick={() =>
+                    handleDownloadFn(item.documentId, item.documentName)
+                  }
+                >
+                  <ArrowForwardIcon fontSize="small" />
+                  {item.documentName}
+                </button>
+              </InputLabel>
+            )
+          )}
 
         <Divider className="verify-validate-form-divider" />
         <Typography variant="h4" sx={{ mb: 4 }}>
