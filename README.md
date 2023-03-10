@@ -18,14 +18,14 @@ The Catena-X Portal application consists of
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 
 Here are three ways to run the application locally on http://localhost:3001/ 
+Note: if you like to run the complete frontend environment follow the guide in the documentation how to start an entire
+[Local Frontend Environment](https://portal.dev.demo.catena-x.net/documentation/?path=developer%2FTechnical+Documentation%2FDev+Process%2F05.+Frontend+Environment.md)
 
 ## Local build & run
 
     yarn
     yarn build
     yarn start
-    # This starts a web server instance on port 3001. For a complete environment
-    # go to the portal-assets repository and continue with steps from README.md
 
 ## Local docker build & run & publish
 
