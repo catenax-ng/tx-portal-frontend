@@ -18,9 +18,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-import { PageNotificationsProps } from 'cx-portal-shared-components'
 import { useTranslation } from 'react-i18next'
-import { setNotification } from 'features/notification/actions'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { PAGES } from 'types/Constants'
@@ -30,7 +28,6 @@ import {
   useRemoveIDPMutation,
 } from 'features/admin/idpApiSlice'
 import DeleteObjectContent from 'components/shared/basic/DeleteObjectContent'
-import { SuccessErrorType } from 'features/admin/appuserApiSlice'
 import IDPStateNotification, {
   IDPState,
 } from 'components/pages/IDPManagement/IDPStateNotification'
