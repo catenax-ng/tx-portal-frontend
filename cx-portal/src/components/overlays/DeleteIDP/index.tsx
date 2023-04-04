@@ -42,7 +42,7 @@ export const DeleteIDP = ({ id }: { id: string }) => {
   const [status, setStatus] = useState<IDPState>(IDPState.NONE)
 
   const deleteIDPSuccess = () => {
-    setTimeout(() => dispatch(closeOverlay()), 3000)
+    setTimeout(() => dispatch(closeOverlay()), 3500)
     setStatus(IDPState.SUCCESS_DELETE_IDP)
     navigate(`/${PAGES.IDP_MANAGEMENT}`)
   }
