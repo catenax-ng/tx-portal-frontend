@@ -18,13 +18,20 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-import { Dialog, DialogHeader, DialogContent, Typography, DialogActions, Button } from "cx-portal-shared-components"
-import { IdentityProvider } from "features/admin/idpApiSlice"
-import { show } from "features/control/overlay/actions"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
-import { OVERLAYS } from "types/Constants"
+import {
+  Dialog,
+  DialogHeader,
+  DialogContent,
+  Typography,
+  DialogActions,
+  Button,
+} from 'cx-portal-shared-components'
+import { IdentityProvider } from 'features/admin/idpApiSlice'
+import { show } from 'features/control/overlay/actions'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { OVERLAYS } from 'types/Constants'
 
 export default function UpdateIDPSuccess({
   idp,
