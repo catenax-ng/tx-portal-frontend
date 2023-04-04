@@ -31,6 +31,10 @@ import {
 } from 'features/admin/idpApiSlice'
 import DeleteObjectContent from 'components/shared/basic/DeleteObjectContent'
 import { SuccessErrorType } from 'features/admin/appuserApiSlice'
+import IDPStateNotification, {
+  IDPState,
+} from 'components/pages/IDPManagement/IDPStateNotification'
+import { useState } from 'react'
 
 export const DeleteIDP = ({ id }: { id: string }) => {
   const { t } = useTranslation()
@@ -38,30 +42,17 @@ export const DeleteIDP = ({ id }: { id: string }) => {
   const navigate = useNavigate()
   const { data } = useFetchIDPDetailQuery(id ?? '')
   const [removeIDP] = useRemoveIDPMutation()
+  const [status, setStatus] = useState<IDPState>(IDPState.NONE)
 
   const deleteIDPSuccess = () => {
-    const notification: PageNotificationsProps = {
-      open: true,
-      severity: SuccessErrorType.SUCCESS,
-      title: 'content.idpManagement.notification.confirmDeleteTitle',
-      description:
-        'content.idpmanagement.notification.confirmDeleteDescription',
-    }
-    dispatch(closeOverlay())
-    dispatch(setNotification(notification))
+    setTimeout(() => dispatch(closeOverlay()), 3000)
+    setStatus(IDPState.SUCCESS_DELETE_IDP)
     navigate(`/${PAGES.IDP_MANAGEMENT}`)
   }
 
   const deleteIDPFailure = () => {
-    const notification: PageNotificationsProps = {
-      open: true,
-      severity: 'error',
-      title: 'content.idpManagement.notification.failureDeleteTitle',
-      description:
-        'content.idpmanagement.notification.failureDeleteDescription',
-    }
-    dispatch(closeOverlay())
-    dispatch(setNotification(notification))
+    setTimeout(() => dispatch(closeOverlay()), 3500)
+    setStatus(IDPState.ERROR_DELETE_IDP)
     navigate(`/${PAGES.IDP_MANAGEMENT}`)
   }
 
@@ -91,6 +82,7 @@ export const DeleteIDP = ({ id }: { id: string }) => {
         handleConfirm={handleRemove}
         confirmTitle={t('global.actions.delete')}
       />
+      <IDPStateNotification state={status} />
     </>
   ) : null
 }
