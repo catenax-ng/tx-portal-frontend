@@ -18,27 +18,48 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'features/store'
-import { initialState, name, OverlayState } from './types'
 
-const forward = (_state: any, action: any) => ({
-  ...action.payload,
-})
+const name = 'control/notify'
+
+export enum NotifyType {
+  NONE = 'NONE',
+  SUCCESS_VALID_FORMAT = 'SUCCESS_VALID_FORMAT',
+  SUCCESS_UPLOAD_USERS = 'SUCCESS_UPLOAD_USERS',
+  SUCCESS_IDP_CREATE = 'SUCCESS_IDP_CREATE',
+  SUCCESS_IDP_CONFIG = 'SUCCESS_IDP_CONFIG',
+  SUCCESS_IDP_DELETE = 'SUCCESS_IDP_DELETE',
+  ERROR_MULTIPLE_FILES = 'ERROR_MULTIPLE_FILES',
+  ERROR_INVALID_TYPE = 'ERROR_INVALID_TYPE',
+  ERROR_INVALID_FORMAT = 'ERROR_INVALID_FORMAT',
+  ERROR_UPLOAD_USERS = 'ERROR_UPLOAD_USERS',
+  ERROR_IDP_CREATE = 'ERROR_IDP_CREATE',
+  ERROR_IDP_CONFIG = 'ERROR_IDP_CONFIG',
+  ERROR_IDP_DELETE = 'ERROR_IDP_DELETE',
+}
+
+export type Notify = {
+  type: NotifyType
+  msg?: string
+}
+
+const initialState: Array<Notify> = []
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    exec: forward,
-    show: forward,
-    closeOverlay: forward,
+    enq: (state, action: PayloadAction<Notify>) =>
+      (state = [...state, action.payload]),
+    deq: (state) => (state = state.slice(1)),
   },
 })
 
-export const stateSelector = (state: RootState): OverlayState =>
-  state.control.overlay
+export const { enq, deq } = slice.actions
 
-const Slice = { slice }
+export const notifySelector = (state: RootState): Array<Notify> =>
+  state.control.notify
 
-export default Slice
+export default slice.reducer

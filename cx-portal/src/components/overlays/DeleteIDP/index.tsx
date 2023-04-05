@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { PAGES } from 'types/Constants'
-import { closeOverlay } from 'features/control/overlay/actions'
+import { closeOverlay } from 'features/control/overlay'
 import {
   useFetchIDPDetailQuery,
   useRemoveIDPMutation,

@@ -26,7 +26,7 @@ import {
   DialogHeader,
 } from 'cx-portal-shared-components'
 import { useDispatch } from 'react-redux'
-import { closeOverlay, show } from 'features/control/overlay/actions'
+import { closeOverlay, show } from 'features/control/overlay'
 import { useState } from 'react'
 import {
   IdentityProviderUpdate,
@@ -48,8 +48,7 @@ export const UpdateIDP = ({ id }: { id: string }) => {
   const doUpdateIDP = async () => {
     if (!(data && idpUpdateData)) return
     try {
-      const idpUpdate = await updateIdp(idpUpdateData).unwrap()
-      console.log(idpUpdate)
+      await updateIdp(idpUpdateData).unwrap()
       dispatch(show(OVERLAYS.UPDATE_IDP_SUCCESS, id))
     } catch (error) {
       console.log(error)

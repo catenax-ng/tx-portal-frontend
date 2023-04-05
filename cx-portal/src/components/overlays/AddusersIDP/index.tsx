@@ -32,7 +32,7 @@ import {
   Typography,
 } from 'cx-portal-shared-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeOverlay } from 'features/control/overlay/actions'
+import { closeOverlay } from 'features/control/overlay'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   useFetchIDPDetailQuery,
@@ -46,7 +46,7 @@ import {
   editIDPUserSelector,
   FORMS,
   storeForm,
-} from 'features/control/formSlice'
+} from 'features/control/form'
 import { useDropzone } from 'react-dropzone'
 import IDPStateNotification, {
   FileFormat,

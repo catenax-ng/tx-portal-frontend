@@ -18,23 +18,15 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-import { OVERLAYS } from 'types/Constants'
+import { combineReducers } from 'redux'
+import overlay from './overlay'
+import form from './form'
+import notify from './notify'
+import update from './updates'
 
-export const name = 'control/overlay'
-
-export type OverlayState = {
-  type: OVERLAYS
-  id: string
-  title?: string
-  status?: boolean
-  subTitle?: string
-  roles?: string[]
-}
-
-export const initialState = {
-  type: OVERLAYS.NONE,
-  id: '',
-  title: '',
-  displayName: '',
-  subTitle: '',
-}
+export default combineReducers({
+  form,
+  notify,
+  overlay,
+  update,
+})

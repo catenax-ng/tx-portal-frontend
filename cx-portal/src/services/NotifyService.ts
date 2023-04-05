@@ -18,17 +18,18 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-import { combineReducers } from 'redux'
-import { slice as details } from './details/slice'
-import { slice as favorites } from './favorites/slice'
-import { slice as marketplace } from './marketplaceDeprecated/slice'
+import { NotifyType, deq, enq } from 'features/control/notify'
+import { store } from 'features/store'
 
-export const reducer = combineReducers({
-  details: details.reducer,
-  favorites: favorites.reducer,
-  marketplace: marketplace.reducer,
-})
+const NOTIFY_TIME = 7000
 
-const Reducer = { reducer }
+const NotifyService = {
+  notify: (type: NotifyType, msg?: string) => {
+    store.dispatch(enq({ type, msg }))
+    setTimeout(() => store.dispatch(deq()), NOTIFY_TIME)
+  },
+}
 
-export default Reducer
+export const { notify } = NotifyService
+
+export default NotifyService

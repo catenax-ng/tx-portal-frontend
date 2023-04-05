@@ -19,16 +19,12 @@
  ********************************************************************************/
 
 import { combineReducers } from 'redux'
-import { slice as overlay } from './overlay/slice'
-import { slice as form } from './formSlice'
-import { slice as update } from './updatesSlice'
+import { slice as details } from './details/slice'
+import { slice as favorites } from './favorites/slice'
+import { slice as marketplace } from './marketplaceDeprecated/slice'
 
-export const reducer = combineReducers({
-  overlay: overlay.reducer,
-  update: update.reducer,
-  form: form.reducer,
+export default combineReducers({
+  details: details.reducer,
+  favorites: favorites.reducer,
+  marketplace: marketplace.reducer,
 })
-
-const Reducer = { reducer }
-
-export default Reducer

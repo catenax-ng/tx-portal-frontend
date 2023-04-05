@@ -19,16 +19,12 @@
  ********************************************************************************/
 
 import { combineReducers } from 'redux'
-import { slice as registration } from './registration/slice'
-import { slice as user } from './userDeprecated/slice'
-import { slice as userOwn } from './userOwn/slice'
+import { slice as licenses } from './licenses/slice'
+import { slice as news } from './news/slice'
+import { slice as search } from './search/slice'
 
-export const reducer = combineReducers({
-  user: user.reducer,
-  registration: registration.reducer,
-  userOwn: userOwn.reducer,
+export default combineReducers({
+  licenses: licenses.reducer,
+  news: news.reducer,
+  search: search.reducer,
 })
-
-const Reducer = { reducer }
-
-export default Reducer
