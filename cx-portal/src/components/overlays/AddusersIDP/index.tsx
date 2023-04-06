@@ -183,11 +183,11 @@ export const AddusersIDP = ({ id }: { id: string }) => {
       .then((response) => response.text())
       .then((result) => {
         storeResponse(result)
-        success(t('SUCCESS_UPLOAD_USERS'))
+        success(t(`state.${IDPState.SUCCESS_UPLOAD_USERS}`))
         setStatus(true)
       })
       .catch((err) => {
-        error(t('ERROR_UPLOAD_USERS', '', err))
+        error(t(`state.${IDPState.ERROR_UPLOAD_USERS}`, '', err))
         setStatus(false)
       })
     setTimeout(() => setStatus(undefined), 3000)
@@ -330,7 +330,7 @@ export const AddusersIDP = ({ id }: { id: string }) => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 1) {
-        error(t(IDPState.ERROR_MULTIPLE_FILES))
+        error(t(`state.${IDPState.ERROR_MULTIPLE_FILES}`))
         setStatus(false)
         setTimeout(() => setStatus(undefined), 3000)
         return
@@ -341,7 +341,7 @@ export const AddusersIDP = ({ id }: { id: string }) => {
       }
       acceptedFiles.forEach((file: File) => {
         if (!Object.values(MIME_TYPE).includes(file.type)) {
-          error(t(IDPState.ERROR_INVALID_TYPE))
+          error(t(`state.${IDPState.ERROR_INVALID_TYPE}`))
           setStatus(false)
           setTimeout(() => setStatus(undefined), 3000)
           return
