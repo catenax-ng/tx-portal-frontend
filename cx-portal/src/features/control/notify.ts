@@ -33,6 +33,7 @@ export type Notify = {
   severity: SeverityType
   title: string
   msg?: string
+  data?: object | string | number | boolean
 }
 
 const initialState: Array<Notify> = []

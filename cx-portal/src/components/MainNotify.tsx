@@ -25,14 +25,20 @@ import { notifySelector } from 'features/control/notify'
 export default function MainNotify() {
   const notify = useSelector(notifySelector)
   return (
-    <div style={{ zIndex: 20 }}>
+    <div style={{ zIndex: 9999 }}>
       <PageSnackbarStack>
         {notify.map((item) => (
           <PageSnackbar
             key={item.toString()}
             severity={item.severity}
             title={item.title}
-            description={item.msg}
+            description={`${item.msg} ${
+              item.data
+                ? Object.entries(item.data)
+                    .filter((entry) => entry[0] === 'status')
+                    .map((entry) => entry[0] + '=' + entry[1])
+                : ''
+            }`}
             open={true}
             showIcon
           />

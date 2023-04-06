@@ -27,9 +27,9 @@ const NOTIFY_TIME = 7000
 const NotifyService = {
   notify: (item: Notify) => {
     if (item.severity === SeverityType.ERROR) {
-      log.error(item.title, item.msg)
+      log.error(`${item.title}, ${item.msg}`, item.data)
     } else {
-      log.info(item.title, item.msg)
+      log.info(`${item.title}, ${item.msg}`, item.data)
     }
     store.dispatch(enq(item))
     setTimeout(() => store.dispatch(deq()), NOTIFY_TIME)
@@ -42,7 +42,8 @@ const NotifyService = {
     NotifyService.notify({
       severity: SeverityType.SUCCESS,
       title,
-      msg: `${msg} ${data ? data.toString() : ''}`,
+      msg,
+      data,
     }),
   error: (
     title: string,
@@ -52,7 +53,8 @@ const NotifyService = {
     NotifyService.notify({
       severity: SeverityType.ERROR,
       title,
-      msg: `${msg} ${data ? data.toString() : ''}`,
+      msg,
+      data,
     }),
 }
 

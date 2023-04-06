@@ -38,9 +38,9 @@ export const DeleteIDP = ({ id }: { id: string }) => {
     if (!data) return
     try {
       await removeIDP(data.identityProviderId).unwrap()
-      success(t('delete.success.title'))
+      success(t('delete.short'))
     } catch (err) {
-      error(t('delete.error.title'), '', err as object)
+      error(t('delete.short'), '', err as object)
     }
     setTimeout(() => dispatch(closeOverlay()), 3000)
   }

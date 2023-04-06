@@ -35,6 +35,7 @@ import {
 } from 'features/admin/idpApiSlice'
 import { UpdateIDPContent } from './UpdateIDPContent'
 import { OVERLAYS } from 'types/Constants'
+import { error, success } from 'services/NotifyService'
 
 export const UpdateIDP = ({ id }: { id: string }) => {
   const { t } = useTranslation('idp')
@@ -49,9 +50,10 @@ export const UpdateIDP = ({ id }: { id: string }) => {
     if (!(data && idpUpdateData)) return
     try {
       await updateIdp(idpUpdateData).unwrap()
+      success(t('edit.short'), t('state.success'))
       dispatch(show(OVERLAYS.UPDATE_IDP_SUCCESS, id))
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      error(t('edit.short'), t('state.error'), err as object)
     }
   }
 
