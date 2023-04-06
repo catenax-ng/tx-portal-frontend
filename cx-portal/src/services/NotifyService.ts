@@ -26,12 +26,10 @@ const NOTIFY_TIME = 7000
 
 const NotifyService = {
   notify: (item: Notify) => {
-    switch (item.severity) {
-      case SeverityType.ERROR:
-        log.error(item.title, item.msg)
-        break
-      default:
-        log.info(item.title, item.msg)
+    if (item.severity === SeverityType.ERROR) {
+      log.error(item.title, item.msg)
+    } else {
+      log.info(item.title, item.msg)
     }
     store.dispatch(enq(item))
     setTimeout(() => store.dispatch(deq()), NOTIFY_TIME)
