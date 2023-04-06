@@ -161,7 +161,7 @@ export const apiSlice = createApi({
     }),
     updateIDP: builder.mutation<IdentityProvider, IdentityProviderUpdate>({
       query: (idpUpdate: IdentityProviderUpdate) => ({
-        url: `/api/administration/identityprovider/owncompany/identityproviders_error/${idpUpdate.identityProviderId}`,
+        url: `/api/administration/identityprovider/owncompany/identityproviders/${idpUpdate.identityProviderId}`,
         method: 'PUT',
         body: idpUpdate.body,
       }),
