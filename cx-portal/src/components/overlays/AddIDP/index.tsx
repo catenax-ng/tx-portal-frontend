@@ -44,6 +44,7 @@ import { ValidatingInput } from '../CXValidatingOverlay/ValidatingInput'
 import { isCompanyName } from 'types/Patterns'
 import { getCentralIdp } from 'services/EnvironmentService'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+import { error, success } from 'services/NotifyService'
 
 enum IDPType {
   COMPANY = 'Company',
@@ -180,8 +181,9 @@ export const AddIdp = () => {
       }
       await updateIdp(idpUpdateData).unwrap()
       dispatch(show(OVERLAYS.UPDATE_IDP, idp.identityProviderId))
+      success(t('add.short'))
     } catch (err) {
-      console.log(err)
+      error(t('add.short'), t('state.error'), err as object)
     }
   }
 
