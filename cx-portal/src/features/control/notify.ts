@@ -24,24 +24,14 @@ import { RootState } from 'features/store'
 
 const name = 'control/notify'
 
-export enum NotifyType {
-  NONE = 'NONE',
-  SUCCESS_VALID_FORMAT = 'SUCCESS_VALID_FORMAT',
-  SUCCESS_UPLOAD_USERS = 'SUCCESS_UPLOAD_USERS',
-  SUCCESS_IDP_CREATE = 'SUCCESS_IDP_CREATE',
-  SUCCESS_IDP_CONFIG = 'SUCCESS_IDP_CONFIG',
-  SUCCESS_IDP_DELETE = 'SUCCESS_IDP_DELETE',
-  ERROR_MULTIPLE_FILES = 'ERROR_MULTIPLE_FILES',
-  ERROR_INVALID_TYPE = 'ERROR_INVALID_TYPE',
-  ERROR_INVALID_FORMAT = 'ERROR_INVALID_FORMAT',
-  ERROR_UPLOAD_USERS = 'ERROR_UPLOAD_USERS',
-  ERROR_IDP_CREATE = 'ERROR_IDP_CREATE',
-  ERROR_IDP_CONFIG = 'ERROR_IDP_CONFIG',
-  ERROR_IDP_DELETE = 'ERROR_IDP_DELETE',
+export enum SeverityType {
+  ERROR = 'error',
+  SUCCESS = 'success',
 }
 
 export type Notify = {
-  type: NotifyType
+  severity: SeverityType
+  title: string
   msg?: string
 }
 
@@ -51,9 +41,8 @@ export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    enq: (state, action: PayloadAction<Notify>) =>
-      (state = [...state, action.payload]),
-    deq: (state) => (state = state.slice(1)),
+    enq: (state, action: PayloadAction<Notify>) => [...state, action.payload],
+    deq: (state) => state.slice(1),
   },
 })
 

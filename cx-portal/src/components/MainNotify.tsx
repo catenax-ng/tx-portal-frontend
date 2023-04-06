@@ -20,34 +20,23 @@
 
 import { useSelector } from 'react-redux'
 import { PageSnackbar, PageSnackbarStack } from 'cx-portal-shared-components'
-import { SuccessErrorType } from 'features/admin/appuserApiSlice'
-import { useTranslation } from 'react-i18next'
-import { NotifyType, notifySelector } from 'features/control/notify'
+import { notifySelector } from 'features/control/notify'
 
 export default function MainNotify() {
-  const { t } = useTranslation('notify')
   const notify = useSelector(notifySelector)
   return (
     <div style={{ zIndex: 20 }}>
       <PageSnackbarStack>
-        {notify.map((item, i) =>
-          ((error: boolean) => (
-            <PageSnackbar
-              key={i}
-              title={t(
-                `state.${
-                  error ? SuccessErrorType.ERROR : SuccessErrorType.SUCCESS
-                }`
-              )}
-              description={t(item.type)}
-              open={item.type !== NotifyType.NONE}
-              severity={
-                error ? SuccessErrorType.ERROR : SuccessErrorType.SUCCESS
-              }
-              showIcon
-            />
-          ))(item.type.toString().startsWith('ERROR_'))
-        )}
+        {notify.map((item) => (
+          <PageSnackbar
+            key={item.toString()}
+            severity={item.severity}
+            title={item.title}
+            description={item.msg}
+            open={true}
+            showIcon
+          />
+        ))}
       </PageSnackbarStack>
     </div>
   )

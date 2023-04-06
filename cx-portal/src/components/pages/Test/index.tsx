@@ -20,8 +20,7 @@
 
 import { Button } from 'cx-portal-shared-components'
 import FormTest from './index.form'
-import { NotifyType } from 'features/control/notify'
-import { notify } from 'services/NotifyService'
+import { error, success } from 'services/NotifyService'
 
 export default function Test() {
   return (
@@ -29,10 +28,12 @@ export default function Test() {
       <section>
         <Button
           onClick={() =>
-            notify(NotifyType.ERROR_IDP_CREATE, 'error creating idp')
+            Date.now() % 2
+              ? error('idp.create', 'the IdP could not be created')
+              : success('idp.create', 'IdP created')
           }
         >
-          Error
+          Notify
         </Button>
         <FormTest />
       </section>

@@ -18,18 +18,46 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-import { NotifyType, deq, enq } from 'features/control/notify'
+import { Notify, SeverityType, deq, enq } from 'features/control/notify'
 import { store } from 'features/store'
+import log from './LogService'
 
 const NOTIFY_TIME = 7000
 
 const NotifyService = {
-  notify: (type: NotifyType, msg?: string) => {
-    store.dispatch(enq({ type, msg }))
+  notify: (item: Notify) => {
+    switch (item.severity) {
+      case SeverityType.ERROR:
+        log.error(item.title, item.msg)
+        break
+      default:
+        log.info(item.title, item.msg)
+    }
+    store.dispatch(enq(item))
     setTimeout(() => store.dispatch(deq()), NOTIFY_TIME)
   },
+  success: (
+    title: string,
+    msg?: string,
+    data?: object | string | number | boolean
+  ) =>
+    NotifyService.notify({
+      severity: SeverityType.SUCCESS,
+      title,
+      msg: `${msg} ${data ? data.toString() : ''}`,
+    }),
+  error: (
+    title: string,
+    msg?: string,
+    data?: object | string | number | boolean
+  ) =>
+    NotifyService.notify({
+      severity: SeverityType.ERROR,
+      title,
+      msg: `${msg} ${data ? data.toString() : ''}`,
+    }),
 }
 
-export const { notify } = NotifyService
+export const { notify, success, error } = NotifyService
 
 export default NotifyService
