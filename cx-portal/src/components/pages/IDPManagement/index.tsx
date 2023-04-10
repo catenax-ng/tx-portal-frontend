@@ -38,7 +38,10 @@ export default function IDPManagement() {
       <PageHeaderWithCrumbs crumbs={[PAGES.IDP_MANAGEMENT]} />
       <section>
         <div className="idp-management-header">
-          <img src={`${getAssetBase()}/images/content/teaser.png`} alt={'idp management'} />
+          <img
+            src={`${getAssetBase()}/images/content/teaser.png`}
+            alt={'idp management'}
+          />
           <div className="idp-management-title">
             <Typography>{t('page.desc')}</Typography>
             <Button

@@ -71,7 +71,10 @@ export default function TechnicalUserManagement() {
             </Button>
           </div>
           <div className="content-technical-user-image">
-            <img src={`${getAssetBase()}/images/content/teaser.png`} alt={'alt tag info'} />
+            <img
+              src={`${getAssetBase()}/images/content/teaser.png`}
+              alt={'alt tag info'}
+            />
           </div>
         </div>
 
