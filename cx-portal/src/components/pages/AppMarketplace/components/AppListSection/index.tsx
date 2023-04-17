@@ -39,8 +39,6 @@ import {
   removeItem,
 } from 'features/apps/favorites/actions'
 import {
-  AppMarketplaceApp,
-  SubscriptionStatus,
   useFetchActiveAppsQuery,
 } from 'features/apps/apiSlice'
 import debounce from 'lodash.debounce'
@@ -65,16 +63,6 @@ export default function AppListSection() {
   useEffect(() => {
     dispatch(fetchItems())
   }, [dispatch])
-
-  const getStatusLabel = (subscribeStatus: string) => {
-    if (subscribeStatus === SubscriptionStatus.PENDING) {
-      return t('content.appdetail.pending')
-    } else if (subscribeStatus === SubscriptionStatus.ACTIVE) {
-      return t('content.appdetail.purchased')
-    } else {
-      return subscribeStatus
-    }
-  }
 
   useEffect(() => {
     setCardsData(cards)
