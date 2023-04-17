@@ -38,9 +38,7 @@ import {
   fetchItems,
   removeItem,
 } from 'features/apps/favorites/actions'
-import {
-  useFetchActiveAppsQuery,
-} from 'features/apps/apiSlice'
+import { useFetchActiveAppsQuery } from 'features/apps/apiSlice'
 import debounce from 'lodash.debounce'
 import CommonService from 'services/CommonService'
 
