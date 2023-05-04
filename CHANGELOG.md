@@ -11,12 +11,22 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
    * technical integration style updates
 * News Section
    * Fixed UI of news section in home page
+* Company Role Updates
+   * New page for company role update
 * Sort section
    * Hover effect added
 * Notification
    * SERVICE_RELEASE_REQUEST and APP_RELEASE_REQUEST content update
+   * ROLE_UPDATE_APP_OFFER and ROLE_UPDATE_CORE_OFFER types added and corresponding contents updated
 * Static templete
    * Two more new templates added
+* ImageComponent
+   * Do not hide current on zoom in action
+* Admin board - Service
+   * Filter action issue fix
+* Appdetails
+   * App Images size and responsivenes
+   * Subscription Status hover changes
 
 ## 1.4.0
 
