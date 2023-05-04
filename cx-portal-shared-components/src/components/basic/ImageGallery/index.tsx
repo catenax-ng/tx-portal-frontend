@@ -20,37 +20,36 @@
 
 import { ImageItem } from './ImageItem'
 import { ImageType } from './types'
+import { Carousel } from '../Carousel'
 
 export const ImageGallery = ({
   gallery,
-  grid = false,
   modalWidth,
-  align = 'flex-start',
 }: {
   gallery: ImageType[]
   grid?: boolean
   modalWidth?: string
   align?: string
 }) => (
-  <div
-    style={{
-      display: grid ? 'grid' : 'flex',
-      gap: '30px',
-      placeContent: align,
-      gridTemplateColumns: 'repeat(3, 1fr)',
-    }}
+  <Carousel
+    gapBetweenSlides={32}
+    gapCarouselTop={100}
+    gapToArrows={32}
+    dots={false}
+    infinite
+    itemHeight={279}
+    itemWidth={266}
+    slidesToShow={3}
   >
     {gallery.map((image) => (
       <ImageItem
         key={image.url}
         url={image.url}
         text={image.text}
-        size={image.size || 'medium-rectangle'}
         hover={image.hover || true}
-        borderRadius={image.borderRadius || true}
         shadow={image.shadow || true}
         modalWidth={modalWidth}
       />
     ))}
-  </div>
+  </Carousel>
 )

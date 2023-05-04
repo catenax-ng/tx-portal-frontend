@@ -48,7 +48,7 @@ interface ImageProps {
   loader?: (src: string) => Promise<ArrayBuffer>
 }
 
-export const Image = ({ src, alt, style, loader }: ImageProps) => {
+export const Image = ({ src, alt, loader }: ImageProps) => {
   const [data, setData] = useState(src)
   const [load, setLoad] = useState(false)
   const [error, setError] = useState(false)
@@ -86,8 +86,10 @@ export const Image = ({ src, alt, style, loader }: ImageProps) => {
         }
       }}
       style={{
+        height: '60%',
+        width: '100%',
         objectFit: 'cover',
-        ...style,
+        borderRadius: '10px',
       }}
     />
   )

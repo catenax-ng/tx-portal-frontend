@@ -31,51 +31,9 @@ export const ImageItem = ({
   hover = true,
   borderRadius = true,
   shadow = true,
-  width,
-  height,
   modalWidth,
-  additionalStyles = {},
 }: ImageType) => {
   const [hovered, setHovered] = useState(false)
-  const getWidth = () => {
-    switch (size) {
-      case 'small-rectangle':
-        return {
-          width: '284px',
-          height: '160px',
-        }
-      case 'small-square':
-        return {
-          width: '160px',
-          height: '160px',
-        }
-      case 'medium-rectangle':
-        return {
-          width: '456px',
-          height: '256px',
-        }
-      case 'medium-square':
-        return {
-          width: '256px',
-          height: '256px',
-        }
-      case 'large-rectangle':
-        return {
-          width: '625px',
-          height: '352px',
-        }
-      case 'custom':
-        return {
-          width: width,
-          height: height,
-        }
-      default:
-        return {
-          width: '352px',
-          height: '352px',
-        }
-    }
-  }
   return (
     <>
       {hovered ? (
@@ -93,25 +51,10 @@ export const ImageItem = ({
         <div
           onClick={() => hover && setHovered(true)}
           style={{
-            width: getWidth().width,
-            height: getWidth().height,
-            boxShadow: shadow ? '0px 10px 20px rgb(80 80 80 / 30%)' : 'none',
-            borderRadius: borderRadius ? '16px' : '0px',
-            marginBottom: '20px',
-            cursor: 'zoom-in',
-            ...additionalStyles,
+            height: '100%',
           }}
         >
-          <Image
-            src={url}
-            alt={text}
-            style={{
-              width: getWidth().width,
-              height: getWidth().height,
-              borderRadius: borderRadius ? '16px' : '0px',
-              objectFit: 'contain',
-            }}
-          />
+          <Image src={url} alt={text} />
           <Typography
             variant="body2"
             sx={{
