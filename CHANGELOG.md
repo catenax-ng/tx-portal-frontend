@@ -73,10 +73,10 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * Eslinter checks disabled in sever code sections related to the app release process
 * Sorting component behavior - preselected selects are not visible and active, hover, inactive state missing
 * App Release Process - step "Verify & Submit" - the app card language switch is impacting the language of the whole party instead of only updating the app card
-* Imge Zoom-In results in the useCase/company introduction page is breaking in the background when user opens the zoom in function
-* User account creation success overlay is displayed. When closing the success overlay, for a milisecond an error overlay is displayed
+* Image zoom in results in the useCase/company introduction page is breaking in the background when user opens the zoom in function
+* User account creation success overlay is displayed. When closing the success overlay, for a millisecond an error overlay is displayed
 * App Management (Provider) sub-menu broken
-* App and Service Marketplace . App cards display width responsivness missing
+* App and Service Marketplace - app cards display width responsiveness missing
 * Service Subscription Management not yet released, only available via API endpoints
 * Service Release Admin Board not yet released, only available via API endpoints
 
