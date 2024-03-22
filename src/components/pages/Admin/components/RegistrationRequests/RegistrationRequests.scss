@@ -57,17 +57,9 @@
   margin: 0 auto;
 }
 
-.padding-r-80 {
-  padding: 0px 80px;
-}
-
 .documents-column--cell {
   display: block !important;
   overflow: auto !important;
-}
-
-.load-more-button-container {
-  margin: 20px auto;
 }
 
 .document-cell-container {
@@ -110,40 +102,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.header-section {
-  .header-content {
-    position: absolute;
-    padding: 7vh 10%;
-  }
-
-  img {
-    display: block;
-    overflow: auto;
-    width: 100%;
-  }
-}
-
-.page-title-container {
-  margin-top: 50px;
-
-  .page-title {
-    text-align: center;
-    padding-bottom: 20px;
-    margin-bottom: 80px;
-    position: relative;
-
-    &::after {
-      content: '';
-      width: 70px;
-      border-bottom: 2px solid;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
 }
 
 .state-cell-container .MuiButtonBase-root.Mui-disabled {
