@@ -70,9 +70,7 @@ const ConfigurationDetailsOverlay = ({
             {t(
               'content.edcconnector.configurationDetails.section.part1.description'
             )}
-            <span
-              className="detailsBodyLink"
-            >
+            <span className="detailsBodyLink">
               {data?.decentralIdentityManagementAuthUrl}
             </span>
           </Typography>
@@ -132,9 +130,7 @@ const ConfigurationDetailsOverlay = ({
             {t(
               'content.edcconnector.configurationDetails.section.part4.description'
             )}
-            <span
-              className="detailsBodyLink"
-            >
+            <span className="detailsBodyLink">
               {data?.decentralIdentityManagementServiceUrl}
             </span>
           </Typography>
