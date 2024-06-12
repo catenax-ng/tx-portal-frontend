@@ -32,7 +32,6 @@
   - Add more and collapse button to category view
 - Page headers
   - harmonization and standardization of page headers
-- Use scroll to top button from shared components
 
 ## 2.0.0
 

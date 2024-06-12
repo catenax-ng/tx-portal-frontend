@@ -19,10 +19,8 @@
  ********************************************************************************/
 
 import { useEffect, useState } from 'react'
-import {
-  Navigation,
-  ScrollToTopButton,
-} from '@catena-x/portal-shared-components'
+import { Navigation, IconButton } from '@catena-x/portal-shared-components'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import './Footer.scss'
@@ -85,7 +83,15 @@ export const Footer = ({ pages }: { pages: string[] }) => {
 
   return (
     <footer style={{ background: getPreferredColor() }}>
-      {showScrollToTop && <ScrollToTopButton onButtonClick={scrollToTop} />}
+      {showScrollToTop && (
+        <IconButton
+          color="secondary"
+          onClick={scrollToTop}
+          sx={{ position: 'absolute', right: '40px', top: '2px' }}
+        >
+          <ArrowUpwardIcon />
+        </IconButton>
+      )}
       <img
         className="footer-head"
         src="/orange-background-head.svg"
